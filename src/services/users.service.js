@@ -9,6 +9,11 @@ class UsersService {
         return response;
     }
 
+    async findById(id) {
+        const response = await usersMongo.findById(id);
+        return response;
+    }
+
     async findByEmail(email) {
         const response = await usersMongo.findByEmail(email);
         return response;
@@ -24,9 +29,12 @@ class UsersService {
         return response;
     }
 
-    async updateOne(obj) {
-        const { id, ...userData } = obj;
-        const response = await usersMongo.updateOne(id, userData);
+    async updateOne(id, obj) {
+        const userId = id;
+        const userData = obj;
+        console.log("userId: ", userId)
+        console.log("data: ", userData);
+        const response = await usersMongo.updateOne(userId, userData);
         return response;
     }
 

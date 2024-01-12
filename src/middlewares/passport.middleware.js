@@ -36,7 +36,7 @@ passport.use("login", new LocalStrategy(
         try {
             //console.log("email: ", email)
             const userFound = await usersMongo.findByEmail(email);
-            console.log(userFound)
+            //console.log(userFound)
             if (!userFound) {
                 return done(null, false);
             }

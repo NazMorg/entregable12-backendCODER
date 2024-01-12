@@ -6,6 +6,7 @@ const updateCode = document.getElementById('updateCode');
 const updatePrice = document.getElementById('updatePrice');
 const updateStock = document.getElementById('updateStock');
 const updateCategory = document.getElementById('updateCategory');
+const owner = document.getElementById('owner');
 
 updateProductForm.onsubmit = async (e) => {
     e.preventDefault();
@@ -17,6 +18,7 @@ updateProductForm.onsubmit = async (e) => {
             price: updatePrice.value,
             stock: updateStock.value,
             category: updateCategory.value,
+            owner: owner.value,
         }
         await updateProduct(updateProductId.value, updateProductData)
     } else {

@@ -23,12 +23,12 @@ class SessionsController {
     currentSession = async (req, res) => {
         if (req.user) {
             const userFound = await usersService.findByEmail(req.user.email);
-            const { first_name, last_name, age, email, role } = userFound;
-            res.render('currentuser', { first_name, last_name, age, email, role });
+            const { first_name, last_name, age, email, role, _id } = userFound;
+            res.render('currentuser', { first_name, last_name, age, email, role, _id });
         } else {
             const userFound = await usersService.findByEmail(req.session.email);
-            const { first_name, last_name, age, email, role } = userFound;
-            res.render('currentuser', { first_name, last_name, age, email, role });
+            const { first_name, last_name, age, email, role, _id } = userFound;
+            res.render('currentuser', { first_name, last_name, age, email, role, _id });
         }
     }
 }

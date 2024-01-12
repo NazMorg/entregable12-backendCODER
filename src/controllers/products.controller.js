@@ -47,13 +47,19 @@ class ProductsController {
     updateProduct = async (req, res) => {
         try {
             const productId = req.params.pid;
-            const productData = req.body;
-
-            const updatedProduct = await productsService.updateOne(productId, productData);
-            if (!updatedProduct) {
-                res.status(400).json({ message: errorMessages.PRODUCT_NOT_FOUND });
+            const productFound = await productsService.findById(productId);
+            const activeUser = req.user ? req.user.email : req.session.email;
+            if(activeUser === productFound.owner) {
+                const productData = req.body;
+    
+                const updatedProduct = await productsService.updateOne(productId, productData);
+                if (!updatedProduct) {
+                    res.status(400).json({ message: errorMessages.PRODUCT_NOT_FOUND });
+                }
+                res.status(200).json({ message: "Producto Actualizado", product: updatedProduct });
+            } else {
+                res.status(403).json({ message: errorMessages.ACTION_DENIED });
             }
-            res.status(200).json({ message: "Producto Actualizado", product: updatedProduct });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -62,12 +68,18 @@ class ProductsController {
     deleteProduct = async (req, res) => {
         try {
             const productId = req.params.pid;
-            const deletedProduct = await productsService.deleteOne(productId);
-
-            if (!deletedProduct) {
-                res.status(400).json({ message: errorMessages.PRODUCT_NOT_DELETED });
+            const productFound = await productsService.findById(productId);
+            const activeUser = req.user ? req.user.email : req.session.email;
+            if(activeUser === productFound.owner) {
+                const deletedProduct = await productsService.deleteOne(productId);
+    
+                if (!deletedProduct) {
+                    res.status(400).json({ message: errorMessages.PRODUCT_NOT_DELETED });
+                }
+                res.status(200).json({ message: "Producto Eliminado", product: deletedProduct });
+            } else {
+                res.status(403).json({ message: errorMessages.ACTION_DENIED });
             }
-            res.status(200).json({ message: "Producto Eliminado", product: deletedProduct });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

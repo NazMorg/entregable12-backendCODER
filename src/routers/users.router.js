@@ -7,4 +7,6 @@ router.post("/signup", usersController.userSignup)
 
 router.get("/logout", usersController.userLogout)
 
+router.put("/:uid", usersController.getPremium)
+
 export default router;

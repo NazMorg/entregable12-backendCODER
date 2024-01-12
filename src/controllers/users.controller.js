@@ -19,6 +19,25 @@ class UsersController {
             res.redirect("/");
         });
     }
+
+    getPremium = async (req, res) => {
+        try {
+            const userId = req.params.uid;
+            const newUserStatus = req.body;
+            const userFound = await usersService.findById(userId);
+            userFound.isPremium = newUserStatus.isPremium;
+            const updatedUserData = { ...userFound };
+            console.log(updatedUserData)
+
+            const updatedUser = await usersService.updateOne(userId, updatedUserData);
+            if (!updatedUser) {
+                res.status(400).json({ message: errorMessages.USER_NOT_UPDATED });
+            }
+            res.status(200).json({ message: "Usuario Actualizado" });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }
 
 export const usersController = new UsersController();

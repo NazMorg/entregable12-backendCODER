@@ -5,6 +5,7 @@ const code = document.getElementById('code');
 const price = document.getElementById('price');
 const stock = document.getElementById('stock');
 const category = document.getElementById('category');
+const owner = document.getElementById('owner');
 
 newProductForm.onsubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +17,7 @@ newProductForm.onsubmit = async (e) => {
         price: price.value,
         stock: stock.value,
         category: category.value,
+        owner: owner.value,
     }
     await createNewProduct(newProductData)
 }

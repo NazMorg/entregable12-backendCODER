@@ -47,15 +47,33 @@ class ViewsController {
     }
 
     createProductRender = (req, res) => {
-        res.render('createProduct'); 
+        if (req.user) {
+            const { email } = req.user;
+            res.render('createProduct', { email });
+        } else {
+            const { email } = req.session;
+            res.render('createProduct', { email });
+        } 
     }
 
     updateProductRender = (req, res) => {
-        res.render('updateProduct'); 
+        if (req.user) {
+            const { email } = req.user;
+            res.render('updateProduct', { email });
+        } else {
+            const { email } = req.session;
+            res.render('updateProduct', { email });
+        }
     }
 
     deleteProductRender = (req, res) => {
-        res.render('deleteProduct'); 
+        if (req.user) {
+            const { email } = req.user;
+            res.render('deleteProduct', { email });
+        } else {
+            const { email } = req.session;
+            res.render('deleteProduct', { email });
+        }
     }
 
 }

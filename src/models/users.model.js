@@ -31,6 +31,10 @@ const usersSchema = new Schema({
         type: String,
         default: "user",
     },
+    isPremium: {
+        type: Boolean,
+        default: false,
+    },
     from_github: {
         type: Boolean,
         default: false,
